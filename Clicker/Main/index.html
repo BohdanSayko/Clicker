@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <div id="logo">
+            <a href="https://case-battle.at/"><img src="assets/main_logo.webp" alt="" id="logo-img" ></a>
+            <h1 id="logo-text">PigTap</h1>
+        </div>        
+        <div class="nav-menu">
+            <span class="dark-text">Home</span>
+            <span class="main-text">Market</span>
+            <span class="main-text">Rating</span>
+        </div>
+        <div id="profile">
+            <img src="assets/avatar.png" alt="" id="avatar">
+            <div id="profile-info">
+                <span class="main-text">Tony Stark</span>
+                <div id="profile-info-balance">
+                    <img src="assets/Coin.png" alt="">
+                    <span class="dark-text" id="balance">0</span>
+                </div>                   
+            </div>
+        </div>
+    </header>
+    <main>
+        <div id="list-wrapper">
+            <ul id="upgrades">
+                <li data-effect="multiplier" data-value="2">
+                    <img src="assets/power-tap.jpeg" alt="" class="boost-img"> 
+                    <div class="boost-description">
+                        <span class="dark-text">Power Tap</span>
+                        <span class="main-text">PigCoins per click x<span id="power-tap-data">1.5</span></span>
+                        <div class="coins">
+                            <img src="assets/Coin.png" alt="">
+                            <span  class="dark-text" id="power-tap-price">80</span>
+                        </div>
+                    </div>
+                    <div class="button-wrapper">
+                        <button class="upgrade-button">Buy</button>
+                    </div>
+                </li>
+                <li data-effect="golden-touch" data-value="2">
+                    <img src="assets/gold.jpeg" alt="" class="boost-img">
+                    <div class="boost-description">
+                        <span class="dark-text">Golden touch</span>
+                        <span class="main-text">random income <span>5</span>%</span>
+                        <div class="coins">
+                            <img src="assets/Coin.png" alt="">
+                            <span class="dark-text">250</span>
+                        </div>
+                    </div>
+                    <div class="button-wrapper">
+                        <button class="upgrade-button">Buy</button>
+                    </div>
+                </li>
+                <li data-effect="passive-earn" data-value="1">
+                    <img src="assets/passive.jpeg" alt="" class="boost-img">
+                    <div class="boost-description">
+                        <span class="dark-text">Coin Stream</span>
+                        <span class="main-text">passive income x<span>2</span></span>
+                        <div class="coins">
+                            <img src="assets/Coin.png" alt="">
+                            <span class="dark-text">240</span>
+                        </div>
+                    </div>
+                    <div class="button-wrapper">
+                        <button class="upgrade-button">Buy</button>
+                    </div>
+                </li>
+                <li data-effect="passive-timeboost" data-value="50">
+                    <img src="assets/acceleration.jpeg" alt="" class="boost-img">
+                    <div class="boost-description">
+                        <span class="dark-text">Passive Multiplier</span>
+                        <span class="main-text">passive earn x<span id="passive-accelerator-data">2</span></span>
+                        <div class="coins">
+                            <img src="assets/Coin.png" alt="">
+                            <span  class="dark-text" id="passive-accelerator-price">1000</span>
+                        </div>
+                    </div>
+                    <div class="button-wrapper" id="current-button">
+                        <button class="upgrade-button">Buy</button>
+                    </div>
+                </li>
+                <li data-effect="tap-timeboost" data-value="2">
+                    <img src="assets/multiplier.jpeg" alt="" class="boost-img">
+                    <div class="boost-description">
+                        <span class="dark-text">Coin Multiplier</span>
+                        <span class="main-text">Click for minute x<span>2</span></span>
+                        <div class="coins">
+                            <img src="assets/Coin.png" alt="">
+                            <span  class="dark-text">1000</span>
+                        </div>
+                    </div>
+                    <div class="button-wrapper">
+                        <button class="upgrade-button">Buy</button>
+                    </div>
+                </li>
+                <li data-effect="auto-clicker" data-value="0">
+                    <img src="assets/auto.jpeg" alt="" class="boost-img">
+                    <div class="boost-description">
+                        <span class="dark-text">Mining Drone</span>
+                        <span class="main-text">automated clicks</span>
+                        <div class="coins">
+                            <img src="assets/Coin.png" alt="">
+                            <span class="dark-text">1250</span>
+                        </div>
+                    </div>
+                    <div class="button-wrapper">
+                        <button class="upgrade-button">Buy</button>
+                    </div>
+                </li>
+                <div id="shadow">
+                    <div id="arrow-wrapper">
+                        <img src="assets/Iconly/Light-Outline/Arrow - Down.png" alt="">
+                    </div>
+                </div>               
+            </ul>
+        </div>
+        <div id="tap-half">
+            <div id="info">
+                <div class="info-div">
+                    <img src="assets/total-coins.jpeg" alt="" class="info-img">
+                    <div class="info-data">
+                        <span class="info-numbers" id="total-balance">0</span>
+                        <span class="main-text">Total PigCoins</span>
+                    </div>
+                </div>
+                <div class="info-div" id="central-info">
+                    <img src="assets/coin-per-click.webp" alt="" class="info-img">
+                    <div class="info-data">
+                        <span class="info-numbers" id="coin-per-click">1</span>
+                        <span class="main-text">Coins per Click</span>
+                    </div>
+                </div>
+                <div class="info-div">
+                    <img src="assets/passive-income.webp" alt="" class="info-img">
+                    <div class="info-data">
+                        <span class="info-numbers" id="passive-earn">1/sec</span>
+                        <span class="main-text">Passive Income</span>
+                    </div>
+                </div>
+            </div>
+            <div id="tap-img"></div>
+        </div>   
+    </main>
+    <footer>
+        <div class="nav-menu">
+            <span class="main-text">About game</span>
+            <span class="main-text">Help center</span>
+            <span class="main-text">Rules</span>
+        </div>
+    </footer>
+    <script src="script.js"></script>
+</body>
+</html>

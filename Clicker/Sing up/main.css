@@ -1,0 +1,108 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background: #e4bac0b6;
+    font-family: 'Courier New', Courier, monospace;
+}
+
+a {
+    color: inherit !important;
+    font-weight: bolder;
+    text-decoration: none;
+}
+
+main {
+    padding: 80px 0 0;
+}
+
+.logo {
+    display: block;
+    width: 100px;
+    margin: 0 auto 64px;
+}
+
+.welcome-message {
+    text-align: center;
+    color: #121212;
+    font-size: 40px;
+    margin: 0 0 48px;
+}
+
+.subtitle {
+    text-align: center;
+    color: #121212;
+    font-size: 24px;
+    margin: 0 0 32px;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    max-width: 400px;
+    margin: 0 auto;
+    gap: 24px;
+}
+
+input {
+    border-radius: 8px;
+    outline: none;
+    border: 1px solid #afb1b6;
+    padding: 15px 5px;
+    width: 100%;
+}
+
+button {
+    width: 100%;
+    background: #FFFAF0;
+    color: #796345;
+    border: gray 2px solid;
+    border-radius:  12px;
+    padding: 12px 0;
+    cursor: pointer;
+
+    transition-duration: 200ms ;
+}
+
+button:active {
+    padding: 12px 0;
+    color: #3a2d12;
+    border: gray 2px solid;
+    cursor: pointer;
+}
+
+.account {
+    font-size: 16px;
+    color: #121212;
+    margin: 0 auto;
+}
+
+.account a{
+    font-size: 16px;
+    color: blue;
+}
+
+label {
+    font-size: 16;
+    color: #61466b;
+    display: block;
+}
+
+.input-with-icon {
+    position: relative;
+}
+
+.input-with-icon img{
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    cursor: pointer;
+}
+
+#eye {
+    max-width: 24px;
+}
