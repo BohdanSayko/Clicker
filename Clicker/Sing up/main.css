@@ -106,3 +106,77 @@ label {
 #eye {
     max-width: 24px;
 }
+
+.pop-up-wrapper {
+    display: flex;
+    justify-content: center;
+    align-content: space-around;
+    padding-top: 160px;
+
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.2);
+    z-index: 1000;  
+}
+
+.pop-up-wrapper-out {
+    animation: pop-up-wrapper-animation 0.5s forwards;
+}
+
+.pop-up {
+    display: flex;
+    flex-direction: column-reverse;
+    justify-content: center;
+    text-align: center;
+
+    max-width: 400px;
+    padding: 40px 40px;
+    background: white;
+    border-radius: 20px;
+
+    position: fixed;
+    left: 50%;
+    top: 50px;
+    transform: translateX(-50%);
+
+    animation: pop-up-in-animation 0.5s ease-in-out forwards;
+}
+
+.pop-up-out {
+    animation: pop-up-out-animation 0.5s ease-in-out forwards;
+}
+
+@keyframes pop-up-wrapper-animation {
+    0% {
+        opacity: 0.2;
+    }
+    100% {
+        opacity: 0;
+    }
+}
+
+@keyframes pop-up-in-animation {
+    0% {
+        top: -200px;
+        opacity: 0;
+    }
+    100% {
+        top: 50px;
+        opacity: 1;
+    }
+}
+
+@keyframes pop-up-out-animation {
+    0% {
+        top: 50px;
+        opacity: 1;
+    }
+    100% {
+        top: -200px;
+        opacity: 0;
+    }
+}
+
