@@ -1,166 +1,133 @@
-document.addEventListener("DOMContentLoaded", function () { // shadow
-    /*---------------- Звуки -----------------*/
-    const popSound = new Audio("sound/pop.mp3");
+const tapButton = document.querySelector('#tap-img');
+const balance = document.querySelector("#balance");
+const upgradeList = document.querySelector("ul");
+const upgradeButtons = document.querySelectorAll(".upgrade-button");                                                                               9
 
-    /*---------------- Елементи -----------------*/
-    const tap = document.querySelector("#tap-img");
-    const totalBalance = document.querySelector("#total-balance");
-    const coinPerClick = document.querySelector("#coin-per-click");
-    const passiveEarn = document.querySelector("#passive-earn");
-    const balance = document.querySelector("#balance");
-    const passiveSpeedElement = document.querySelector("#passive-accelerator-data");
+function getEmail() {
+    return localStorage.getItem('email');
+}
 
-    /*---------------- Бонуси -----------------*/
-    let coinMultiplier = { value: parseInt(coinPerClick.innerText) };
-    let passiveCoinMultiplier = { value: parseInt(passiveEarn.innerText) };
-    let passiveSpeed = parseInt(passiveSpeedElement.innerHTML);
-    let goldenTouch = 0.05;
-    let timeBoost = 60000;
-    let autoMinerTime = 1000;
-    let isAutoMiner = false
+function createUpgrade(upgrade) {
+    const li = document.createElement('li');
+    upgradeList.appendChild(li);
 
-    /*---------------- Оновлення балансу -----------------*/
-    function getBalance() {
-        return parseInt(balance.innerText.replace(/\s/g, ""), 10) || 0;
-    }
+    const img = document.createElement('img');
+    img.setAttribute('src', upgrade.src);
+    img.classList.add('boost-img');
+    li.appendChild(img);
 
-    function updateBalance(amount) {
-        let newBalance = getBalance() + amount;
-        balance.innerText = newBalance.toLocaleString();
-        totalBalance.innerText = (parseInt(totalBalance.innerText.replace(/\s/g, ""), 10) || 0) + amount;
-    }
+    const boostInfo = document.createElement('div');
+    boostInfo.classList.add('boost-description');
+    li.appendChild(boostInfo);
 
-    /*----- Random -----*/
-    function getRandom() {
-        return Math.random();
-    }
+    const header = document.createElement('span');
+    header.classList.add('dark-text');
+    header.innerHTML = upgrade.name;
+    boostInfo.appendChild(header);
 
-    /*----- Time-Boost -----*/
-    function createTimeBoost(effect, multiplierTarget, displayElement) {
-        let boostElement = document.createElement("div");
-        boostElement.classList.add(effect);
-        document.body.appendChild(boostElement);
-        boostElement.style.cursor = 'pointer';
-        
-    
-        const timeWrapper = document.createElement("div");
-        timeWrapper.setAttribute("id", "time-wrapper");
-        boostElement.appendChild(timeWrapper);
-    
-        let timer = document.createElement("span");
-        timer.innerText = timeBoost / 1000;
-        timer.classList.add("timer-text");
-        timeWrapper.appendChild(timer);
-    
-        boostElement.addEventListener("click", () => {
-            if (boostElement.dataset.active === "true") return;
-    
-            boostElement.dataset.active = "true";
-            multiplierTarget.value *= 2;
-            displayElement.innerHTML = multiplierTarget.value + (effect === "passive-time-boost" ? "/sec" : "");
-    
-            boostElement.style.cursor = 'default';
-            boostElement.style.boxShadow = "0 0 40px rgba(0, 0, 0, 0.5)";
-            addTimer(timeBoost, timer);
-    
-            setTimeout(() => {
-                multiplierTarget.value /= 2;
-                displayElement.innerHTML = multiplierTarget.value + (effect === "passive-time-boost" ? "/sec" : "");
-                boostElement.dataset.active = "false";
-                boostElement.style.boxShadow = "0 0 0 white";
-            }, timeBoost);
-        });
-    }
-    
-    /*----- Passive -----*/
-    setInterval(() => {
-        updateBalance(passiveCoinMultiplier.value);
-    }, passiveSpeed * 1000);
+    const description = document.createElement('span');
+    description.classList.add('main-text');
+    description.innerHTML = upgrade.description;
+    boostInfo.appendChild(description);
 
-    /*----- Tap -----*/
-    tap.addEventListener("click", () => {
-        popSound.cloneNode(true).play();
+    const priceWrapper = document.createElement('div');
+    priceWrapper.classList.add('coins');
+    boostInfo.appendChild(priceWrapper);
 
-        const randomNum = getRandom();
+    const coinImg = document.createElement('img');
+    coinImg.setAttribute('src', 'assets/Coin.png');
+    priceWrapper.appendChild(coinImg);
 
-        if (randomNum <= goldenTouch) {
-            updateBalance(coinMultiplier.value * 2);
-        } else {
-            updateBalance(coinMultiplier.value);
-        }
-    });
+    const price = document.createElement('span');
+    price.classList.add('dark-text');
+    price.innerHTML = upgrade.price;
+    priceWrapper.appendChild(price);
 
-    /*----- Timer -----*/
-    function addTimer(timeBoost, element) {
-        let currentTimer = timeBoost;
-        let interval = setInterval(() => {
-            currentTimer -= 1000;
-            element.innerHTML = currentTimer / 1000;
+    const buttonWrapper = document.createElement('div');
+    buttonWrapper.classList.add('button-wrapper');
+    li.appendChild(buttonWrapper);
 
-            if (currentTimer <= 0) {
-                clearInterval(interval);
-                element.innerHTML = timeBoost / 1000;
-            }
-        }, 1000);
-    }
-
-    /*----- AutoMiner -----*/
-    
-
-    /*----- Buy -----*/
-    document.querySelectorAll(".upgrade-button").forEach(button => {
-        button.addEventListener("click", function () {
-            let parent = this.closest("li");
-            let effect = parent.dataset.effect;
-            let effectData = parseInt(parent.dataset.value);
-            let priceElement = parent.querySelector(".coins span");
-            let price = parseInt(priceElement.textContent.replace(/\s/g, ""), 10);
-
-            let currentBalance = getBalance();
-
-            if (currentBalance >= price) {
-                updateBalance(-price);
-
-                if (effect === "multiplier") {
-                    coinMultiplier.value += effectData;
-                    coinPerClick.innerText = coinMultiplier.value;
-                    priceElement.innerHTML = Math.floor(price * 1.5);
-                }
-
-                if (effect === "golden-touch") {
-                    goldenTouch = Math.min(1, goldenTouch + 0.05);
-                    priceElement.innerHTML = Math.floor(price * 1.5);
-                }
-
-                if (effect === "passive-earn") {
-                    passiveCoinMultiplier.value *= 2;
-                    passiveEarn.innerText = passiveCoinMultiplier.value + "/sec";
-                    priceElement.innerHTML = Math.floor(price * 3);
-                }
-
-                if (effect === "passive-timeboost") {
-                    createTimeBoost("passive-time-boost", passiveCoinMultiplier, passiveEarn);
-                }
-
-                if (effect === "tap-timeboost") {
-                    createTimeBoost("tap-time-boost", coinMultiplier, coinPerClick);
-                }
-
-                if (effect === "auto-clicker") {
-                    isAutoMiner = true;
-                    if (isAutoMiner) {
-                        console.log(1);
-            
-                        window.autoMinerInterval = setInterval(() => {
-                            console.log(2);
-                            updateBalance(coinMultiplier.value);
-                        }, autoMinerTime);
-                    }
-                }
+    const button = document.createElement('button');
+    button.classList.add('upgrade-button');
+    button.innerHTML = 'Buy';
+    button.addEventListener('click', () => {
+        fetch('http://localhost:3000/upgrades/' + upgrade.id, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                newPrice: Math.floor(upgrade.price * 1.4),
+                email: getEmail()
+            })
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.message === "Upgrade successfully updated") {
+                upgrade.price = Math.floor(upgrade.price * 1.4);
+                price.innerHTML = upgrade.price;
             } else {
-                alert("Not enough money!");
+                alert(data.message);
             }
+        })
+        .catch(error => {
+            console.error("Upgrade error:", error);
         });
     });
+    
+    buttonWrapper.appendChild(button)
+}
 
+function createAllUpgrades() {
+    getUpgrades().then(data => {
+        data.upgrades.forEach(element => {
+            createUpgrade(element);
+        });
+    })
+    .catch(error => {
+        console.error("Помилка при отриманні апгрейдів:", error);
+    });
+    
+}
+
+function getUpgrades() {
+    return fetch('http://localhost:3000/upgrades')
+        .then(response => response.json());
+}
+
+function fetchPost(endpoint) {
+    fetch('http://localhost:3000' + endpoint, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            email: getEmail()
+        })
+    })
+    .then(response => {
+        if(!response.ok) {
+            throw new Error("Error " + response.status);
+        }
+
+        return response.json()
+    })
+    .then(data => {
+        if(data.balance !== undefined) {
+            balance.innerHTML = data.balance;
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+    });
+};
+
+tapButton.addEventListener('click', () => {
+    fetchPost('/click');
 });
+
+setInterval(() => {
+    fetchPost('/passive-income');
+}, 1000);
+
+createAllUpgrades()

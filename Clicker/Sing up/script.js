@@ -57,7 +57,9 @@ function fetchData(endpoint) {
 
         if (data.token) {
             localStorage.setItem('token', data.token);
+            localStorage.setItem('email', inputsValue.email)
         }
+
     })
 }
 
