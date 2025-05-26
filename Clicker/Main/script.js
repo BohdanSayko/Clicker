@@ -1,7 +1,7 @@
 const tapButton = document.querySelector('#tap-img');
 const balance = document.querySelector("#balance");
 const upgradeList = document.querySelector("ul");
-const upgradeButtons = document.querySelectorAll(".upgrade-button");                                                                               9
+const upgradeButtons = document.querySelectorAll(".upgrade-button");
 
 function getEmail() {
     return localStorage.getItem('email');
@@ -51,25 +51,16 @@ function createUpgrade(upgrade) {
     button.classList.add('upgrade-button');
     button.innerHTML = 'Buy';
     button.addEventListener('click', () => {
-        fetch('http://localhost:3000/upgrades/' + upgrade.id, {
-            method: 'PUT',
+        fetch('http://localhost:3000/buy-upgrade/' + upgrade.id, {
+            method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({
-                newPrice: Math.floor(upgrade.price * 1.4),
                 email: getEmail()
             })
         })
         .then(response => response.json())
-        .then(data => {
-            if (data.message === "Upgrade successfully updated") {
-                upgrade.price = Math.floor(upgrade.price * 1.4);
-                price.innerHTML = upgrade.price;
-            } else {
-                alert(data.message);
-            }
-        })
         .catch(error => {
             console.error("Upgrade error:", error);
         });
@@ -90,7 +81,7 @@ function createAllUpgrades() {
     
 }
 
-function getUpgrades() {
+async function getUpgrades() {
     return fetch('http://localhost:3000/upgrades')
         .then(response => response.json());
 }
